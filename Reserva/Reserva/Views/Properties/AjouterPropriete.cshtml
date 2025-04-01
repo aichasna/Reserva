@@ -1,0 +1,98 @@
+﻿@model Reserva.ViewModels.ProprieteViewModel
+<div style="height: 80px; background-color: lightgray;"></div>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Ajouter une Propriété</h1>
+    <form asp-action="AjouterPropriete" asp-controller="Properties" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label for="Nom">Nom</label>
+            <input type="text" class="form-control" id="Nom" name="Nom" value="@Model.Nom" required maxlength="100">
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <textarea class="form-control" id="Description" name="Description" maxlength="500">@Model.Description</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="Type">Type de Propriété</label>
+            <select class="form-control" id="Type" name="Type" required>
+                @foreach (var type in Enum.GetValues(typeof(Reserva.Models.TypePropriete)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="Adresse">Adresse</label>
+            <input type="text" class="form-control" id="Adresse" name="Adresse" value="@Model.Adresse" required maxlength="200">
+        </div>
+
+        <div class="form-group">
+            <label for="Ville">Ville</label>
+            <input type="text" class="form-control" id="Ville" name="Ville" value="@Model.Ville" required maxlength="100">
+        </div>
+
+        <div class="form-group">
+            <label for="Pays">Pays</label>
+            <input type="text" class="form-control" id="Pays" name="Pays" value="@Model.Pays" required maxlength="100">
+        </div>
+
+        <div class="form-group">
+            <label for="PrixParNuit">Prix par Nuit</label>
+            <input type="number" class="form-control" id="PrixParNuit" name="PrixParNuit" value="@Model.PrixParNuit" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Capacite">Capacité (nombre d'invités)</label>
+            <input type="number" class="form-control" id="Capacite" name="Capacite" value="@Model.Capacite" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nbChambres">Nombre de Chambres</label>
+            <input type="number" class="form-control" id="nbChambres" name="nbChambres" value="@Model.NbChambres" required>
+        </div>
+
+        <div class="form-group">
+            <label for="nbSalleDeBain">Nombre de Salles de Bain</label>
+            <input type="number" class="form-control" id="nbSalleDeBain" name="nbSalleDeBain" value="@Model.NbSalleDeBain" required>
+        </div>
+
+        <div class="form-group">
+            <label for="InstructionsArrivée">Instructions pour l'arrivée</label>
+            <textarea class="form-control" id="InstructionsArrivée" name="InstructionsArrivée" maxlength="1000">@Model.InstructionsArrivée</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Équipements</label><br>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" id="WifiDisponible" name="WifiDisponible" value="true" @(Model.WifiDisponible ? "checked" : "")>
+                <label class="form-check-label" for="WifiDisponible">Wi-Fi</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" id="ParkingDisponible" name="ParkingDisponible" value="true" @(Model.ParkingDisponible ? "checked" : "")>
+                <label class="form-check-label" for="ParkingDisponible">Parking</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" id="PiscineDisponible" name="PiscineDisponible" value="true" @(Model.PiscineDisponible ? "checked" : "")>
+                <label class="form-check-label" for="PiscineDisponible">Piscine</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" id="ClimatisationDisponible" name="ClimatisationDisponible" value="true" @(Model.ClimatisationDisponible ? "checked" : "")>
+                <label class="form-check-label" for="ClimatisationDisponible">Climatisation</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" id="AnimauxAcceptes" name="AnimauxAcceptes" value="true" @(Model.AnimauxAcceptes ? "checked" : "")>
+                <label class="form-check-label" for="AnimauxAcceptes">Animaux Acceptés</label>
+            </div>
+        </div>
+        <div>
+            <label for="Photos">Photos</label>
+            <input type="file" name="Photos" id="Photos" multiple />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Ajouter la Propriété</button>
+    </form>
+</div>

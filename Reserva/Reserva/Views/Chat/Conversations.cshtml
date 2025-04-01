@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Reserva.ViewModels.ConversationViewModel>
+
+@{
+    ViewData["HideHeaderFooter"] = true;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Barre verticale pour les utilisateurs -->
+        <div class="col-md-3" style="border-right: 1px solid #ddd; height: 100vh; overflow-y: auto;">
+            <h5>Conversations</h5>
+            <ul class="list-group">
+                @foreach (var conversation in Model)
+                {
+                    <li class="list-group-item">
+                        <a href="javascript:void(0);"
+                           class="text-decoration-none"
+                           onclick="selectUser('@conversation.SenderId', '@conversation.SenderName')">
+                            <strong>@conversation.SenderName</strong><br>
+                            <small>@conversation.LastMessage</small>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Section du chat -->
+        <div class="col-md-9">
+            <div id="chatContainer" style="height: 100vh; display: flex; flex-direction: column;">
+                <div id="chatHeader" style="padding: 10px; border-bottom: 1px solid #ddd;">
+                    <h5 id="chatUserName">Sélectionnez une conversation</h5>
+                </div>
+                <div id="chatMessages" style="flex: 1; overflow-y: auto; padding: 10px; border-bottom: 1px solid #ddd;"></div>
+                <div style="padding: 10px;">
+                    <input type="text" id="chatInput" class="form-control" placeholder="Écrire un message..." />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.min.js"></script>
+<script>
+    const senderId = "@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value";
+    const connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    let receiverId = null;
+    let previousReceiverId = null; // Pour mémoriser l'ancienne conversation
+
+    connection.start()
+        .then(() => {
+            console.log("SignalR connecté !");
+        })
+        .catch(err => console.error("Erreur SignalR:", err));
+
+    // Réception en temps réel
+    connection.on("ReceiveMessage", (message) => {
+        const isSender = message.senderId === senderId;
+        const displayName = isSender ? "Vous" : (message.senderName || "Inconnu");
+        addMessageToChat(displayName, message.content || "Message vide", message.timestamp || "Non spécifié", isSender);
+    });
+
+    document.getElementById("chatInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+            const content = e.target.value.trim();
+            if (content) {
+                sendMessage(content);
+            }
+        }
+    });
+
+    function selectUser(userId, userName) {
+        // Si on avait déjà un receiverId, on quitte d'abord ce groupe
+        if (previousReceiverId && previousReceiverId !== userId) {
+            connection.invoke("LeaveGroup", previousReceiverId)
+                .catch(err => console.error("Erreur lors du LeaveGroup :", err));
+        }
+
+        receiverId = userId;
+        previousReceiverId = userId;
+        document.getElementById("chatUserName").textContent = userName;
+
+        // On rejoint le nouveau groupe
+        connection.invoke("JoinGroup", receiverId)
+            .catch(err => console.error("Erreur lors du JoinGroup :", err));
+
+        fetch(`/Chat/GetMessages?receiverId=${receiverId}`)
+            .then(res => res.json())
+            .then(messages => {
+                const chatMessages = document.getElementById("chatMessages");
+                chatMessages.innerHTML = "";
+                messages.forEach(msg => {
+                    const isSender = msg.senderId === senderId;
+                    const displayName = isSender ? "Vous" : (msg.senderName || "Inconnu");
+                    addMessageToChat(displayName, msg.content || "Message vide", msg.timestamp || "Non spécifié", isSender);
+                });
+            })
+            .catch(err => console.error("Erreur de chargement des messages :", err));
+    }
+
+    function sendMessage(content) {
+        if (!receiverId || !content) {
+            console.warn("Aucun destinataire ou contenu vide.");
+            return;
+        }
+
+        connection.invoke("SendMessage", receiverId, content)
+            .then(() => {
+                // On n'ajoute pas le message localement ici
+                document.getElementById("chatInput").value = "";
+            })
+            .catch(err => console.error("Erreur lors de l'envoi du message :", err));
+    }
+
+    function addMessageToChat(displayName, content, timestamp, isSender) {
+        const chatMessages = document.getElementById("chatMessages");
+
+        // Conteneur global du message
+        const messageContainer = document.createElement("div");
+        messageContainer.style.display = "flex";
+        messageContainer.style.flexDirection = "column";
+        messageContainer.style.alignItems = isSender ? "flex-end" : "flex-start";
+        messageContainer.style.marginBottom = "15px";
+
+        // Nom
+        const nameDiv = document.createElement("div");
+        nameDiv.textContent = displayName;
+        nameDiv.style.fontWeight = "bold";
+        nameDiv.style.marginBottom = "5px";
+        nameDiv.style.textAlign = isSender ? "right" : "left";
+        messageContainer.appendChild(nameDiv);
+
+        // Bulle du message
+        const bubbleDiv = document.createElement("div");
+        bubbleDiv.style.backgroundColor = isSender ? "#007bff" : "#e6e6e6";
+        bubbleDiv.style.color = isSender ? "white" : "black";
+        bubbleDiv.style.borderRadius = "15px";
+        bubbleDiv.style.padding = "8px 12px";
+        bubbleDiv.style.maxWidth = "60%";
+        bubbleDiv.style.whiteSpace = "pre-wrap";
+        bubbleDiv.style.alignSelf = isSender ? "flex-end" : "flex-start";
+
+        // Horodatage
+        const timeDiv = document.createElement("div");
+        timeDiv.style.fontSize = "smaller";
+        timeDiv.style.color = "black";
+        timeDiv.style.marginBottom = "5px";
+        timeDiv.style.textAlign = isSender ? "left" : "right";
+        timeDiv.textContent = timestamp;
+        bubbleDiv.appendChild(timeDiv);
+
+        // Contenu du message
+        const contentDiv = document.createElement("div");
+        contentDiv.textContent = content;
+        bubbleDiv.appendChild(contentDiv);
+
+        messageContainer.appendChild(bubbleDiv);
+        chatMessages.appendChild(messageContainer);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+</script>

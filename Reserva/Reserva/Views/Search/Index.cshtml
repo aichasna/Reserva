@@ -1,0 +1,324 @@
+﻿﻿
+@model Reserva.ViewModels.RechercheProprieteViewModel
+
+<!-- Map Start -->
+<div class="at-haslayout at-gridmap-holder">
+	<div id="at-locationmap" class="at-locationmap"></div>
+	<div class="at-innerbanner-holder at-haslayout">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="at-innerbanner-search">
+						<form class="at-formtheme at-form-advancedsearch" asp-action="Rechercher" asp-controller="Search" method="post">
+							<fieldset>
+								<!-- Destination -->
+								<div class="form-group">
+									<div class="at-select">
+										<select name="Destination">
+											<option value="">Où voulez-vous aller?</option>
+											<option value="Chine">Chine</option>
+											<option value="France">France</option>
+											<option value="Allemagne">Allemagne</option>
+											<option value="Italie">Italie</option>
+											<option value="Japon">Japon</option>
+										</select>
+									</div>
+								</div>
+
+								<!-- Dates -->
+								<div class="form-group at-checkin-holder at-datecheck">
+									<input type="text" id="at-startdate" name="DateDebut" class="form-control" placeholder="Date d'arrivée">
+								</div>
+								<div class="form-group at-checkout-holder at-datecheck">
+									<input type="text" id="at-enddate" name="DateFin" class="form-control" placeholder="Date de retour">
+								</div>
+
+								<!-- Bouton Rechercher -->
+								<div class="at-btnarea">
+									<button type="submit" class="at-btn at-btnactive">Rechercher</button>
+								</div>
+
+								<!-- Bouton pour afficher/masquer les filtres avancés -->
+								<a href="javascript:void(0);" class="at-docsearch">
+									<span class="at-advanceicon"><i></i> <i></i> <i></i></span>
+								</a>
+							</fieldset>
+
+							<!-- Filtres avancés (cachés/affichés au clic sur le bouton) -->
+							<div class="at-advancedsearch-holder">
+								<!-- Nombre d'invités -->
+								<div class="at-advancedsearch">
+									<div class="at-title">
+										<h3>Nombre d'invités:</h3>
+									</div>
+									<div class="at-searchcontent">
+										<div class="at-selectholder">
+											<div class="at-select">
+												<select name="NombreAdultes">
+													<option value="0" hidden>Nombre d'adultes</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select>
+											</div>
+											<div class="at-select">
+												<select name="NombreEnfants">
+													<option value="0" hidden>Nombre d'enfants (2–12)</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select>
+											</div>
+											<div class="at-select">
+												<select name="NombreBebes">
+													<option value="0" hidden>Nombre de bébés (moins de 2)</option>
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- Type de logement -->
+								<div class="at-advancedsearch">
+									<div class="at-title">
+										<h3>Type de logement:</h3>
+									</div>
+									<div class="at-searchcontent">
+										<div class="at-widget-checkbox">
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-apartment1" type="checkbox" name="TypeLogement" value="Appartement">
+												<label for="at-apartment1">Appartement</label>
+											</span>
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-chalet1" type="checkbox" name="TypeLogement" value="Chalet">
+												<label for="at-chalet1">Chalet</label>
+											</span>
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-studio1" type="checkbox" name="TypeLogement" value="Studio">
+												<label for="at-studio1">Studio</label>
+											</span>
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-hotel1" type="checkbox" name="TypeLogement" value="Hotel">
+												<label for="at-hotel1">Hôtel</label>
+											</span>
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-villa1" type="checkbox" name="TypeLogement" value="Villa">
+												<label for="at-villa1">Villa</label>
+											</span>
+											<span class="at-checkbox at-checkboxvtwo">
+												<input id="at-maison1" type="checkbox" name="TypeLogement" value="Maison">
+												<label for="at-maison1">Maison</label>
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<!-- Nombre de chambres -->
+								<div class="at-advancedsearch">
+									<div class="at-title">
+										<h3>Nombre de chambres:</h3>
+									</div>
+									<div class="at-searchcontent">
+										<input type="number" name="NombreChambres" class="form-control" min="1" placeholder="Nombre de chambres">
+									</div>
+								</div>
+
+								<!-- Nombre de salles de bain -->
+								<div class="at-advancedsearch">
+									<div class="at-title">
+										<h3>Nombre de salles de bain:</h3>
+									</div>
+									<div class="at-searchcontent">
+										<input type="number" name="NombreSallesDeBain" class="form-control" min="1" placeholder="Nombre de salles de bain">
+									</div>
+								</div>
+
+								<!-- Plage de prix -->
+								<div class="at-advancedsearch">
+									<div class="at-title">
+										<h3>Prix:</h3>
+									</div>
+									<div class="at-searchcontent">
+										<input type="number" name="MinPrix" class="form-control" placeholder="Prix minimum">
+										<input type="number" name="MaxPrix" class="form-control" placeholder="Prix maximum">
+									</div>
+								</div>
+							</div><!-- Fin at-advancedsearch-holder -->
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Map Start -->
+<!-- Main Start -->
+<main id="at-main" class="at-main at-haslayout">
+	<div class="at-haslayout at-main-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-12 float-left">
+					<!-- Properties grid Start -->
+					<div class="at-showresult-holder">
+						<div class="at-resulttitle">
+							<span>@(Model.Resultats != null && Model.Resultats.Any() ? $"{Model.Resultats.Count()} correspondance(s) trouvée(s) :" : "")</span>
+						</div>
+						<div class="at-rightarea">
+							<form asp-action="Trier" asp-controller="Search" method="get">
+								<div class="at-select">
+									<select name="Tri" onchange="this.form.submit()">
+										<option value="">Trier par</option>
+										<option value="price_asc">Prix (croissant)</option>
+										<option value="price_desc">Prix (décroissant)</option>
+									</select>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="at-properties-grid at-properties-map at-haslayout">
+						<div class="row">
+							@if (Model.Resultats != null && Model.Resultats.Any())
+							{
+								@foreach (var propriete in Model.Resultats)
+								{
+									<div class="col-12 col-md-6 col-xl-4">
+										<div class="at-featured-holder">
+											<div class="at-featuredslider owl-carousel">
+												@foreach (var photo in propriete.Photos)
+												{
+													<figure class="item">
+														<a href="javascript:void(0);"><img src="@photo.CheminImage" alt="img description" class="item" style="width: 350px; height:250px;"></a>
+														<figcaption>
+															<div class="at-slider-details">
+																<span class="at-photolayer"><i class="fas fa-layer-group"></i>@propriete.Photos.Count() Photos</span>
+															</div>
+														</figcaption>
+													</figure>
+												}
+											</div>
+											<div class="at-featured-content">
+												<div class="at-featured-head">
+													<div class="at-featured-tags"><a href="javascript:void(0);">@propriete.Type</a> </div>
+													<div class="at-featured-title">
+														<h3>@propriete.Nom <span>@propriete.PrixParNuit $<em>/ par nuit</em></span></h3>
+													</div>
+													<div class="at-featurerating">
+														<span class="at-stars">
+															<span style="width:@(propriete.AvisPropriete.Any() ? propriete.AvisPropriete.Average(a => a.Note) * 20 : 0)%"></span>
+														</span>
+														<em>@(propriete.AvisPropriete?.Count() ?? 0) avis</em>
+													</div>
+
+													<ul class="at-room-featured">
+														<li><span> @propriete.Capacite invités</span></li>
+														<li><span> @propriete.nbChambres chambres</span></li>
+														<li><span> @propriete.nbSalleDeBain SDB</span></li>
+														<li>
+															<span>
+																<a href="@Url.Action("Index", "Book", new { id = propriete.IdPropriete })" class="btn btn-info mt-2">Voir les détails</a>
+															</span>
+														</li>
+													</ul>
+												</div>
+												<div class="at-featured-footer">
+													<address>@propriete.Adresse , @propriete.Ville , @propriete.Pays</address>
+												</div>
+											</div>
+										</div>
+									</div>
+								}
+							} else {
+								<p>Aucune propriété trouvée</p>
+							}
+									
+							</div>
+						<!-- Properties grid End -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Two Columns End -->
+	</div>
+
+</main>
+<!-- Main End -->
+		
+<!-- Wrapper End -->
+	
+<script src="~/js/vendor/jquery-library.js"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0E01XhK0YStpcxqStbAxxy_MDZtdCWyU"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/prettyPhoto.js"></script>
+<script src="~/js/moment.min.js"></script>
+<script src="~/js/jquery-ui.js"></script>
+<script src="~/js/fullcalendar.min.js"></script>
+<script src="~/js/appear.js"></script>
+<script src="~/js/tipso.js"></script>
+<script src="~/js/readmore.js"></script>
+<script src="~/js/gmap3.js"></script>
+<script src="~/js/lightpick.js"></script>
+<script src="~/js/main-min.js"></script>
+<script src="~/js/main.js"></script>
+
+<script>
+	var center = [37.772323, -122.214897];
+	$('#at-locationmap')
+	.gmap3({
+		center: center,
+		zoom: 13,
+		mapTypeId : google.maps.MapTypeId.ROADMAP
+	})
+	.marker({
+		position: center,
+		icon: 'https://maps.google.com/mapfiles/marker_green.png'
+	});
+	jQuery(document).ready(function () {
+		jQuery('.at-docsearch').on('click', function (e) {
+			e.preventDefault(); 
+			var advancedSearchHolder = jQuery('.at-advancedsearch-holder');
+			advancedSearchHolder.slideToggle(400);
+		});
+
+		jQuery(document).on('click', function (e) {
+			var container = jQuery('.at-advancedsearch-holder');
+			var button = jQuery('.at-docsearch');
+
+			if (!container.is(e.target) && container.has(e.target).length === 0 &&
+				!button.is(e.target) && button.has(e.target).length === 0) {
+				container.slideUp(400); 
+			}
+		});
+	});
+
+	document.addEventListener("DOMContentLoaded", () => {
+		const today = new Date().toISOString().split("T")[0];
+
+		flatpickr("#at-startdate", {
+			dateFormat: "Y-m-d",
+			minDate: today
+		});
+
+		flatpickr("#at-enddate", {
+			dateFormat: "Y-m-d",
+			minDate: today
+		});
+	});
+
+
+</script>
+<!-- Flatpickr CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

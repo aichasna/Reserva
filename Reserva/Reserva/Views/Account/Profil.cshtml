@@ -1,0 +1,215 @@
+﻿@model Reserva.ViewModels.ProfilViewModel
+
+@{
+    ViewData["HideHeaderFooter"] = true;
+}
+
+@section CustomCSS {
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f7f0e8, #ffffff); /* Soft beige gradient for the background */
+            margin-top: 20px;
+            font-family: 'Open Sans', sans-serif; /* Modern font */
+            color: #333; /* Dark text color for readability */
+        }
+
+        .container {
+            max-width: 900px; /* Max width for the container */
+            margin: 50px auto; /* Center the container */
+            padding: 20px; /* Padding for container */
+            background: rgba(255, 255, 255, 0.95); /* Light background with slight transparency */
+            border-radius: 15px; /* Rounded corners for the container */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        h4 {
+            font-weight: 600; /* Bold heading */
+            color: #5d3f28; /* Dark brown color for heading */
+            text-align: center; /* Center align heading */
+            margin-bottom: 20px; /* Margin below heading */
+        }
+
+        .ui-w-80 {
+            width: 80px !important;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 50%; /* Circular profile picture */
+            border: 3px solid #d4af7a; /* Gold border for profile picture */
+        }
+
+        .btn {
+            border-radius: 30px; /* Rounded buttons */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+            padding: 10px 20px; /* Padding for buttons */
+        }
+
+        .btn-primary {
+            background-color: #d4af7a; /* Gold button background */
+            color: #fff; /* White text */
+        }
+
+            .btn-primary:hover {
+                background-color: #c49a6c; /* Darker gold on hover */
+                transform: scale(1.05); /* Slight scale effect on hover */
+            }
+
+        .btn-default {
+            background: #f1f1f1; /* Light gray for default button */
+            color: #333; /* Dark text */
+        }
+
+            .btn-default:hover {
+                background: rgba(0, 0, 0, 0.05); /* Slightly darker on hover */
+            }
+
+        .account-settings-links {
+            margin-top: 20px;
+            border-top: 1px solid #ddd; /* Top border for separation */
+        }
+
+        .list-group-item {
+            border: none; /* Remove border */
+            padding: 15px; /* Padding for items */
+            color: #5d3f28; /* Dark brown color for links */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+
+            .list-group-item:hover {
+                background-color: rgba(189, 139, 72, 0.1); /* Light brown on hover */
+            }
+
+            .list-group-item.active {
+                font-weight: bold; /* Bold for active item */
+                background-color: #f4e1c1; /* Light beige for active tab */
+                color: #5d3f28; /* Darker text for active */
+            }
+
+        .form-label {
+            font-weight: 600; /* Bold labels */
+            color: #5d3f28; /* Dark brown for labels */
+        }
+
+        .form-control {
+            border-radius: 8px; /* Rounded input fields */
+            border: 1px solid #d4af7a; /* Gold border */
+            transition: border-color 0.3s ease; /* Smooth transition */
+        }
+
+            .form-control:focus {
+                border-color: #d4af7a; /* Gold border on focus */
+                box-shadow: 0 0 5px rgba(212, 175, 122, 0.5); /* Soft gold glow */
+                outline: none; /* Remove outline */
+            }
+
+        .text-right {
+            text-align: right; /* Align buttons to the right */
+        }
+    </style>
+}
+
+<body>
+    <div class="container light-style flex-grow-1 container-p-y">
+        <h4 class="font-weight-bold py-3 mb-4">Mon Compte</h4>
+        <form asp-action="UpdateProfil" asp-controller="Account" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <!-- Image Section -->
+                        <img src="@Model.ProfilePicture" alt="Profile Picture" class="ui-w-80" id="profilePicturePreview" style="cursor: pointer;" onclick="document.getElementById('profilePictureInput').click();">
+                        <input asp-for="ProfilePicture" type="file" id="profilePictureInput" class="account-settings-fileinput" style="display: none;" onchange="previewImage(this)">
+
+                        <!-- Menu Section -->
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active" data-toggle="list" href="#account-general">Général</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-address">Adresse</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <!-- General Section -->
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="form-label">Prénom</label>
+                                        <input asp-for="FirstName" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="form-label">Nom</label>
+                                        <input asp-for="LastName" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="BirthDate" class="form-label">Date de Naissance</label>
+                                        <input asp-for="BirthDate" type="date" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="form-label">Numéro de téléphone</label>
+                                        <input asp-for="PhoneNumber" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-label">Adresse Courriel</label>
+                                        <input asp-for="Email" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address Section -->
+                            <div class="tab-pane fade" id="account-address">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="form-label">Adresse</label>
+                                        <input asp-for="Address" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="City" class="form-label">Ville</label>
+                                        <input asp-for="City" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="Country" class="form-label">Pays</label>
+                                        <input asp-for="Country" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3">
+                <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                <a href="/" class="btn btn-default">Annuler</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.querySelector('.account-settings-fileinput').addEventListener('change', function (event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                // Mettre à jour l'image affichée
+                const imgElement = document.querySelector('.ui-w-80');
+                imgElement.src = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file); // Lire le fichier en tant qu'URL de données
+            }
+        });
+
+
+        function previewImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profilePicturePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

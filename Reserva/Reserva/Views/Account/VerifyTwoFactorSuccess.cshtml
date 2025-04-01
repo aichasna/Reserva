@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Vérification réussie";
+    ViewData["HideHeaderFooter"] = true;
+}
+
+<div class="cont">
+    <div class="form sign-in" style="max-width: 400px; margin: 0 auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); text-align: center;">
+        <h2>Vérification réussie</h2>
+        <p>Merci ! Vous serez redirigé vers la page d'accueil dans quelques secondes.</p>
+        <p>Si vous n'êtes pas redirigé automatiquement, cliquez <a href="@Url.Action("Index", "Home")">ici</a>.</p>
+    </div>
+</div>
+
+<script>
+    setTimeout(function () {
+        window.location.href = '@Url.Action("Index", "Home")';
+    }, 3000); // Redirige après 3 secondes
+</script>

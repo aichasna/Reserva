@@ -1,0 +1,365 @@
+﻿@model Reserva.ViewModels.CompositeViewModel
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Success"]
+    </div>
+}
+
+<div id="at-homesilder-holder" class="at-homeslider-holder at-haslayout">
+	<div class="at-homeslidervideo"><video autoplay muted loop><source src="~/images/video.mp4" type="video/mp4"></video></div>
+	<div class="at-home-banner at-home-banner-two at-haslayout">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+					<div class="at-slider-header">
+						<div class="at-title">
+							<h1><span>Trouvez Instantanément des Logements</span>Accessibles &amp; Abordables</h1>
+						</div>
+						<div class="at-description">
+							<p>Découvrez des hébergements uniques et réservez votre séjour en quelques clics. Profitez d'une sélection de chambres et d'appartements adaptés à tous les budgets.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Main Start -->
+<main id="at-main" class="at-main at-haslayout">
+	<!-- Recommended Section Start -->
+	<section class="at-haslayout at-main-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+					<div class="at-sectionhead">
+						<div class="at-sectiontitle">
+							<h2>Destinations recommandées</h2>
+							<span>Commencez Votre Voyage en Créant des Souvenirs</span>
+						</div>
+						<div class="at-description">
+							<p>Explorez des destinations uniques et vivez des expériences inoubliables. Trouvez des hébergements parfaits pour rendre votre séjour exceptionnel.</p>
+						</div>
+					</div>
+				</div>
+				<div class="at-recommended-gallery at-haslayout">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<div class="tr-trip-imgs">
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-01.jpg" alt="img description">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>Dubai</h3>
+										<h4>$213 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-02.jpg" alt="img description" style="height: 210px;">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>Montréal</h3>
+										<h4>$168 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-03.jpg" alt="img description" style="height: 260px;">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>Sydney</h3>
+										<h4>$140 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<div class="tr-trip-imgs">
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-04.jpg" alt="img description">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>Chicago</h3>
+										<h4>$120 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-05.jpg" alt="img description" style="height: 485px;">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>London</h3>
+										<h4>$240 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<div class="tr-trip-imgs">
+							<figure>
+								<a href="#">
+									<img src="images/trip-imgs/img-06.jpg" alt="img description" style="height: 510px;">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>New York</h3>
+										<h4>$170 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-last-child float-left">
+						<div class="tr-trip-imgs">
+							<figure>
+								<a href="javascript:void(0)">
+									<img src="images/trip-imgs/img-07.jpg" alt="img description">
+								</a>
+								<figcaption>
+									<div class="at-trip-content">
+										<h3>Naples</h3>
+										<h4>$180 <span>(À partir de)</span></h4>
+									</div>
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Top Categories Start -->
+	<section class="at-haslayout at-main-section at-sectionbg">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+					<div class="at-sectionhead">
+						<div class="at-sectiontitle">
+							<h2>Explorez les Catégories Principales</h2>
+							<span>Votre Chemin Rapide vers l'Aventure</span>
+						</div>
+						<div class="at-description">
+							<p>Découvrez les meilleurs hébergements et trouvez l'inspiration pour votre prochain voyage. Choisissez parmi une large sélection pour une expérience unique et adaptée à vos envies.</p>
+						</div>
+					</div>
+				</div>
+				<div class="at-category-gallery at-haslayout">
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-01.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-02.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Chalets</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-03.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Villa</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-04.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Maison</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-05.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Studio</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+					<div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+						<a href="javascript:void(0);">
+							<figure class="at-category-img">
+								<img src="images/category/img-06.jpg" alt="img description" style="height: 250px;">
+								<figcaption><h3>Hotêls</h3><span>12,568 Listings</span></figcaption>
+							</figure>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Featured Properties Start -->
+	<section class="at-haslayout at-main-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+					<div class="at-sectionhead">
+						<div class="at-sectiontitle">
+							<h2>Hébergements en Vedette</h2>
+							<span>Offrez-Vous un Séjour de Rêve</span>
+						</div>
+						<div class="at-description">
+							<p>Explorez des propriétés sélectionnées pour leur confort et leur charme unique. Profitez d’un séjour qui allie luxe et détente, pour des moments inoubliables.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div id="at-featured-sliders" class="at-featured-sliders owl-carousel">
+						@if (Model.TopProperties != null && Model.TopProperties.Any())
+						{
+							@foreach (var propriete in Model.TopProperties)
+							{
+								<div class="item">
+									<div class="at-featured-holder">
+										<div class="at-featuredslider owl-carousel">
+											@foreach (var photo in propriete.Photos.Take(1))
+											{
+												<figure class="item">
+													<a href="#"><img src="@photo.CheminImage" alt="@propriete.Nom" class="item" style="width: 350px; height:250px;"></a>
+												</figure>
+											}
+										</div>
+										<div class="at-featured-content">
+											<div class="at-featured-head">
+												<div class="at-featured-title">
+													<h3>@propriete.Nom <span>@propriete.PrixParNuit $<em>/ par nuit</em></span></h3>
+												</div>
+												<div class="at-featurerating">
+													<span class="at-stars">
+														<span style="width:@((propriete.AvisPropriete.Any() ? propriete.AvisPropriete.Average(a => a.Note) * 20 : 0))%"></span>
+													</span>
+													<em>@(propriete.AvisPropriete.Count()) avis</em>
+												</div>
+											</div>
+											<div class="at-featured-footer">
+												<address>@propriete.Adresse, @propriete.Ville, @propriete.Pays</address>
+											</div>
+										</div>
+									</div>
+								</div>
+							}
+						}
+						else
+						{
+							<p>Aucune propriété en vedette pour le moment.</p>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Testimonials Start -->
+	<section class="at-haslayout at-main-section at-sectionbg">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+					<div class="at-sectionhead">
+						<div class="at-sectiontitle">
+							<h2>Avis des Clients</h2>
+							<span>Retours Positifs de nos Clients</span>
+						</div>
+						<div class="at-description">
+							<p>Nos clients apprécient l’accueil chaleureux et l’attention aux détails qui rendent leur séjour exceptionnel. Nous sommes fiers des retours positifs qui témoignent de notre engagement à offrir un séjour mémorable.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div id="at-testimonials-slider" class="at-testimonials-slider owl-carousel">
+						<div class="at-testimonials-content item">
+							<div class="at-description">
+								<blockquote>
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewBox="0 0 78 28">
+										<image id="img1" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg==" />
+									</svg>
+									<q>"Le service était exceptionnel ! Chaque détail a été pris en compte pour rendre notre séjour mémorable."</q>
+								</blockquote>
+							</div>
+							<figure>
+								<img src="images/testimonials/img-01.jpg" alt="img description">
+							</figure>
+							<div class="at-testimonials-title">
+								<h3><a href="javascript:void(0);">Clara Bell</a></h3>
+								<span>France</span>
+							</div>
+						</div>
+						<div class="at-testimonials-content item">
+							<div class="at-description">
+								<blockquote>
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewBox="0 0 78 28">
+										<image id="img2" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg==" />
+									</svg>
+									<q>"Une expérience unique dans un cadre magnifique. Accueil chaleureux et un service impeccable. Je recommande."</q>
+								</blockquote>
+							</div>
+							<figure>
+								<img src="images/testimonials/img-02.jpg" alt="img description">
+							</figure>
+							<div class="at-testimonials-title">
+								<h3><a href="javascript:void(0);">Liam Carter</a></h3>
+								<span>Canada</span>
+							</div>
+						</div>
+						<div class="at-testimonials-content item">
+							<div class="at-description">
+								<blockquote>
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewBox="0 0 78 28">
+										<image id="img3" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg==" />
+									</svg>
+									<q>"J'ai adoré chaque moment ! L'endroit était encore mieux que les photos. Je reviendrai certainement."</q>
+								</blockquote>
+							</div>
+							<figure>
+								<img src="images/testimonials/img-03.jpg" alt="img description">
+							</figure>
+							<div class="at-testimonials-title">
+								<h3><a href="javascript:void(0);">Sofia Ramirez</a></h3>
+								<span>Espagne</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	
+
+
+	<!-- Validation Scripts -->
+	@section Scripts {
+		<partial name="_ValidationScriptsPartial" />
+	}
+
+
+</main>

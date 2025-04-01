@@ -1,0 +1,119 @@
+﻿@model Reserva.ViewModels.CompositeViewModel
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success text-center" role="alert" style="margin-top: 20px;">
+        @TempData["SuccessMessage"]
+    </div>
+
+    <script>
+        setTimeout(function () {
+            window.location.href = "@Url.Action("LoginRegister", "Account")";
+        }, 3000); // Redirection après 3 secondes
+    </script>
+}
+<link rel="stylesheet" href="~/css/LoginRegister.css">
+
+<br>
+<br>
+<div class="cont">
+    <div class="form sign-in">
+        <h2>Bienvenue</h2>
+        <form asp-action="Login" asp-controller="Account" method="post" class="at-formtheme">
+            @Html.AntiForgeryToken()
+            <label>
+                <span>Adresse Courriel</span>
+                <input asp-for="Login.Email" name="Login.Email" type="email" class="form-control" />
+                <span asp-validation-for="Login.Email" class="text-danger"></span>
+            </label>
+            <label>
+                <span>Mot de passe</span>
+                <input asp-for="Login.Password" name="Login.Password" type="password" class="form-control" />
+                <span asp-validation-for="Login.Password" class="text-danger"></span>
+            </label>
+            <div class="form-check mb-3">
+                <input asp-for="Login.RememberMe" name="Login.RememberMe" type="checkbox" class="form-check-input" id="rememberMe" /> 
+                <label for="rememberMe">Se souvenir de moi</label>
+                
+            </div>
+
+            <p class="forgot-pass">
+                <a asp-controller="Account" asp-action="ForgotPassword">Mot de passe oublié ?</a>
+            </p>
+            <button type="submit" class="submit btn-style">Se connecter</button>
+        </form>
+
+
+        <div class="google-signin">
+            <form asp-controller="Account" asp-action="ExternalLogin" method="post">
+                <input type="hidden" name="provider" value="Google" />
+                <input type="hidden" name="returnUrl" value="@Url.Action("Index", "Home")" />
+                <button type="submit" class="google-sign-in-button">Se connecter avec Google</button>
+            </form>
+        </div>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text m--up">
+                <h3>Vous n'avez pas de compte? Inscrivez vous!</h3>
+            </div>
+            <div class="img__text m--in">
+                <h3>Si vous avez déjà un compte, connectez-vous simplement.</h3>
+            </div>
+            <div class="img__btn">
+                <span class="m--up">Inscription</span>
+                <span class="m--in">Connexion</span>
+            </div>
+        </div>
+        <div class="form sign-up">
+            <h2>Créer votre compte</h2>
+            <div class="form-scrollable custom-scroll">
+                <form asp-action="Register" asp-controller="Account" method="post" class="at-formtheme">
+                    @Html.AntiForgeryToken()
+                    <label>
+                        <span>Prénom</span>
+                        <input asp-for="Register.Prenom" name="Register.Prenom" class="form-control" />
+                        <span asp-validation-for="Register.Prenom" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <span>Nom</span>
+                        <input asp-for="Register.Nom" name="Register.Nom" class="form-control" />
+                        <span asp-validation-for="Register.Nom" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <span>Adresse Courriel</span>
+                        <input asp-for="Register.Email" name="Register.Email" class="form-control" />
+                        <span asp-validation-for="Register.Email" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <span>Mot de passe</span>
+                        <input asp-for="Register.Password" name="Register.Password" type="password" class="form-control" />
+                        <span asp-validation-for="Register.Password" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <span>Confirmer mot de passe</span>
+                        <input asp-for="Register.ConfirmPassword" name="Register.ConfirmPassword" type="password" class="form-control" />
+                        <span asp-validation-for="Register.ConfirmPassword" class="text-danger"></span>
+                    </label>
+                    <label>
+                        <input asp-for="Register.IsOwner" name="Register.IsOwner" type="checkbox" />
+                        <span>Devenir propriétaire</span>
+                    </label>
+                    <label>
+                        <span>Numéro de téléphone</span>
+                        <input asp-for="Register.NumeroDeTelephone" name="Register.NumeroDeTelephone" type="phone" class="form-control" />
+                        <span asp-validation-for="Register.NumeroDeTelephone" class="text-danger"></span>
+                    </label>
+                    <button type="submit" class="submit btn-style">S'inscrire</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelector('.img__btn').addEventListener('click', function () {
+        document.querySelector('.cont').classList.toggle('s--signup');
+    });
+</script>

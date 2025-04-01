@@ -1,0 +1,8 @@
+﻿@model Reserva.ViewModels.CompositeViewModel
+@{
+    ViewData["Title"] = "Login/Register";
+    ViewData["HideHeaderFooter"] = true;
+
+}
+
+@await Html.PartialAsync("LoginRegisterPartial", Model)

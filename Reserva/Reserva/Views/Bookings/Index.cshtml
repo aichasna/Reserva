@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Reserva.Models.Réservation>
+
+<div style="height: 80px; background-color: lightgray;"></div>
+
+<h1 style="text-align: center; padding-top:20px">Mes réservations</h1>
+<div id="at-wrapper" class="at-wrapper at-haslayout">
+    <main id="at-main" class="at-main at-haslayout">
+        <div class="at-haslayout at-main-section" style="padding-top: 0px;">
+            <div class="container">
+                <div class="row">
+                    <div id="at-twocolumns" class="at-twocolumns at-haslayout">
+                        <div class="col-12">
+                            <div class="row">
+                                @foreach (var reservation in Model)
+                                {
+                                    <div class="col-md-6 col-lg-12 mb-4">
+                                        <div class="d-flex border rounded">
+                                            <!-- Image Section -->
+                                            <div class="at-featured-image" style="flex: 1;">
+                                                <figure>
+                                                    @if (reservation.Propriété.Photos != null && reservation.Propriété.Photos.Any())
+                                                    {
+                                                        <img src="@reservation.Propriété.Photos.FirstOrDefault()?.CheminImage" alt="Photo de la propriété">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="/images/featured-img/listing/img-02.jpg" alt="Image par défaut">
+                                                    }
+                                                    <figcaption>
+                                                        <div class="at-slider-details">
+                                                            <a href="javascript:void(0);" class="at-tag">@reservation.Statut</a>
+                                                        </div>
+                                                    </figcaption>
+                                                </figure>
+                                            </div>
+
+                                            <!-- Content Section -->
+                                            <div class="at-featured-content p-3" style="flex: 2;">
+                                                <div class="at-featured-head">
+                                                    <div class="at-featured-title">
+                                                        <h3>@reservation.Propriété.Nom</h3>
+                                                        <p><strong>Prix total :</strong> @reservation.Prix.ToString("C")</p>
+                                                    </div>
+                                                    <ul class="at-room-featured list-unstyled">
+                                                        <li><span><i class="ti-calendar"></i> Date d'arrivée : @reservation.DateDebut.ToString("dd MMM yyyy")</span></li>
+                                                        <li><span><i class="ti-calendar"></i> Date de départ : @reservation.DateFin.ToString("dd MMM yyyy")</span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="at-featured-footer">
+                                                    <address>@reservation.Propriété.Adresse, @reservation.Propriété.Ville, @reservation.Propriété.Pays</address><br />
+                                                    @if (reservation.Statut != "Annulé")
+                                                    {
+                                                        <form style="text-align: center;" method="post" action="@Url.Action("AnnulerReservation", "Bookings", new { id = reservation.IdReservation })"
+                                                              onsubmit="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?');">
+                                                            <button type="submit" class="btn btn-danger">Annuler la réservation</button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="text-muted text-danger font-weight-bold" style="font-size: 1.2rem; text-align: center; color: red;">
+                                                            Cette réservation est annulée.
+                                                        </p>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

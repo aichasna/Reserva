@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Reserva.Models.Propriété>
+
+<div style="height: 80px; background-color: lightgray;"></div>
+
+<h1 style="text-align: center; padding-top:20px">Mes Propriétés</h1>
+<div id="at-wrapper" class="at-wrapper at-haslayout">
+    <main id="at-main" class="at-main at-haslayout">
+        <div class="at-haslayout at-main-section" style="padding-top: 0px;">
+            <div class="container">
+                <div class="row">
+                    <div id="at-twocolumns" class="at-twocolumns at-haslayout">
+                        <div class="col-12">
+                            @if (Model != null && Model.Any())
+                            {
+                                <div class="row">
+                                    @foreach (var propriete in Model)
+                                    {
+                                        <div class="col-md-6 col-lg-12 mb-4">
+                                            <div class="d-flex border rounded">
+                                                <!-- Image Section -->
+                                                <div class="at-featured-image" style="flex: 1;">
+                                                    <figure>
+                                                        @if (propriete.Photos != null && propriete.Photos.Any())
+                                                        {
+                                                            <img src="@propriete.Photos.FirstOrDefault()?.CheminImage" alt="Photo de la propriété" style="width: 100%; height: auto;">
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="/images/featured-img/listing/img-02.jpg" alt="Image par défaut" style="width: 100%; height: auto;">
+                                                        }
+                                                    </figure>
+                                                </div>
+
+                                                <!-- Content Section -->
+                                                <div class="at-featured-content p-3" style="flex: 2;">
+                                                    <div class="at-featured-head">
+                                                        <div class="at-featured-title">
+                                                            <h3>@propriete.Nom</h3>
+                                                            <p><strong>Prix par nuit :</strong> @propriete.PrixParNuit.ToString("C")</p>
+                                                        </div>
+                                                        <ul class="at-room-featured list-unstyled">
+                                                            <li><span><i class="ti-home"></i> Capacité : @propriete.Capacite invités</span></li>
+                                                            <li><span><i class="ti-bed"></i> Chambres : @propriete.nbChambres</span></li>
+                                                            <li><span><i class="ti-shower"></i> Salles de bain : @propriete.nbSalleDeBain</span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="at-featured-footer">
+                                                        <address>@propriete.Adresse, @propriete.Ville, @propriete.Pays</address><br />
+                                                        <!-- Lien vers la page de confirmation de suppression -->
+                                                        <div style="text-align: center;">
+                                                            <a href="@Url.Action("SupprimerPropriete", "Properties", new { id = propriete.IdPropriete })"
+                                                               class="btn btn-danger btn-sm">
+                                                                Supprimer
+                                                            </a>
+                                                            <a asp-controller="Properties" asp-action="EditProperties" asp-route-id="@propriete.IdPropriete" class="btn btn-warning btn-sm">Modifier</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center" style="margin-top: 20px;">
+                                    <h3>Aucune propriété trouvée</h3>
+                                    <p>Mettez votre logement sur Reserva et devenez hôte.</p>
+                                </div>
+                            }
+                            <a href="@Url.Action("AjouterPropriete", "Properties")" class="btn btn-primary">Ajouter une propriété</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,90 @@
+﻿/* Global Styles */
+body {
+    background: #f5f5f5; /* Light background for the entire page */
+    margin-top: 20px; /* Top margin to create space */
+    font-family: 'Arial', sans-serif; /* Setting a modern font */
+}
+
+/* Container for the account page */
+.container {
+    max-width: 1200px; /* Maximum width of the container */
+    margin: auto; /* Center the container */
+    padding: 20px; /* Padding around the container */
+    background: #ffffff; /* White background for the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Profile picture */
+.ui-w-80 {
+    width: 80px !important;
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%; /* Make it circular */
+    border: 2px solid #26B4FF; /* Blue border for the image */
+}
+
+/* Button styles */
+.btn {
+    border-radius: 5px; /* Rounded corners for buttons */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.btn-primary {
+    background-color: #26B4FF; /* Primary button background */
+    color: #fff; /* Text color for primary button */
+}
+
+    .btn-primary:hover {
+        background-color: #1a8bbd; /* Darker shade on hover */
+    }
+
+.btn-default {
+    border-color: rgba(24, 28, 33, 0.1);
+    background: rgba(0, 0, 0, 0);
+    color: #4E5155;
+}
+
+label.btn {
+    margin-bottom: 0; /* Remove bottom margin from label buttons */
+}
+
+/* Tab styles */
+.account-settings-links .list-group-item {
+    padding: 1rem; /* Increased padding for better touch targets */
+}
+
+    .account-settings-links .list-group-item.active {
+        font-weight: bold; /* Bold for active tab */
+        background: #e1f5fe; /* Light background for active tab */
+    }
+
+/* Card styles */
+.card {
+    background-clip: padding-box;
+    box-shadow: 0 1px 4px rgba(24, 28, 33, 0.1); /* Slightly darker shadow */
+    border-radius: 8px; /* Rounded corners for cards */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px; /* Reduced padding on smaller screens */
+    }
+
+    .list-group-item {
+        font-size: 14px; /* Smaller font size for smaller screens */
+    }
+
+    .ui-w-80 {
+        width: 60px; /* Smaller profile picture on mobile */
+    }
+
+    .text-right {
+        text-align: center; /* Center buttons on small screens */
+    }
+
+    .btn {
+        width: 100%; /* Full width buttons on mobile */
+        margin: 5px 0; /* Margin between buttons */
+    }
+}

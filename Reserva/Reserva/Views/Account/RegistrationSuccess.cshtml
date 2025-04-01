@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Inscription réussie";
+    ViewData["HideHeaderFooter"] = true;
+}
+
+<div class="cont">
+    <div class="form sign-in" style="max-width: 400px; margin: 0 auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2>Inscription réussie</h2>
+        <p>Votre compte a été créé avec succès.</p>
+        <p>Un courriel de confirmation vous sera envoyé sous peu. Veuillez vérifier vos courriels pour confirmer votre compte.</p>
+
+        <script>
+            setTimeout(function () {
+                // Optionnel : ajouter une redirection automatique
+                window.location.href = "@Url.Action("LoginRegister", "Account")";
+            }, 5000); // 5 secondes
+        </script>
+    </div>
+</div>

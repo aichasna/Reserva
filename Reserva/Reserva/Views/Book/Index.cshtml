@@ -1,0 +1,720 @@
+﻿@model Reserva.Models.Propriété
+@using System.Security.Claims
+
+
+<div style="height: 80px; background-color: lightgray;"></div>
+
+<!-- PROPERTY BANNER -->
+<div class="at-haslayout at-propertybannerholder">
+	
+	<!-- Property Info -->
+	<div class="container">
+				<div class="row">
+					<div class="col-12 col-md-12">
+						<div class="at-propertybannercontent">
+							<div class="at-propertyholder">						
+								<div class="at-title">								
+									<div class="at-username">
+										<a href="javascript:void(0);"> @Model.Type</a>
+											<h2>@Model.Nom</h2>
+										<address><i class="fa fa-location-arrow"></i> @Model.Adresse </address>
+									</div>
+								</div>
+							</div>
+							<div class="at-rightarea">
+								<div class="at-singlerate">
+									<span><em>@Model.PrixParNuit $</em>/ nuit</span>
+								</div>
+								<div class="at-featurerating">
+									<span class="at-stars"><span></span></span><em>@(Model.AvisPropriete?.Count() ?? 0) avis</em>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+	<!-- Photo Slider -->
+	<div class="at-featuredslider owl-carousel">
+		@if (Model.Photos != null && Model.Photos.Any())
+		{
+			@foreach (var photo in Model.Photos)
+			{
+				<figure class="item">
+					<img src="@photo.CheminImage" alt="Photo de la propriété" class="item img-fluid rounded">
+				</figure>
+			}
+		}
+		else
+		{
+			<figure class="item">
+				<img src="/images/default-image.jpg" alt="Image par défaut" class="item">
+			</figure>
+		}
+	</div>
+
+</div>
+
+<!-- Main Start -->
+<main id="at-main" class="at-main at-haslayout">
+	
+	<div class="at-haslayout at-main-section at-propertysingle-mt">
+		<div class="container">
+			<div class="row">
+				<div id="at-twocolumns" class="at-twocolumns at-haslayout">
+					<!-- COLUMN 1 - BOOK -->
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 float-right">
+						<aside id="at-sidebar" class="at-sidebar float-left mt-md-0">
+							<div class="at-sideholder">
+								<a href="javascript:void(0);" id="at-closesidebar" class="at-closesidebar"><i class="ti-close"></i></a>
+								<div class="at-sidescrollbar">
+									<div class="at-widgets-holder at-textfee-holder">
+										<!-- PRIX TOTAL-->
+										<div class="at-widgets-title at-title-textfee" id="headingone" data-toggle="collapse" data-target="#collapseone" aria-expanded="true" aria-controls="collapseone" role="heading">
+											<h2>
+												<span class="at-toteltextfee" id="total-prix"><em>$0.00</em></span>
+												<span>/ pour <span id="num-nights">0</span> nuit(s)</span>
+											</h2>
+										</div>
+										
+										<!-- DÉTAILS DU PRIX TOTAL-->
+										<div class="at-widgets-content collapse show" id="collapseone" aria-labelledby="headingone">
+											<ul class="at-taxesfees">
+												<li><span id="price-per-night">0 $ x 0 nuit(s) <em>$0.00</em></span></li>
+												<li><span>Frais de nettoyage <em>$50.00</em></span></li>
+												<li><span>Frais de service <em>$70.00</em></span></li>
+												<li class="at-textfee">
+													<span>
+														Taxes et frais<i class="far fa-question-circle toltip-content"></i>
+														<em id="taxes">$0.00</em>
+													</span>
+												</li>
+												<li class="at-toteltextfee">
+													<span>Total<em id="total-price">$0.00</em></span>
+												</li>
+											</ul>
+										</div>
+
+										<div class="at-booking-holder">
+											<form class="at-formtheme at-formbanner" asp-action="Réserver" asp-controller="Book" method="post" onsubmit="return confirmerReservation()">
+												<input type="hidden" name="proprieteId" value="@Model.IdPropriete" />
+
+												<fieldset class="at-datetime">
+													<legend class="at-formtitle">Quand souhaitez-vous arriver?</legend>
+													<div class="form-group">
+														<div class="at-selectdate-holder">
+															<div class="at-select">
+																<label>Date d'arrivée :</label>
+																<input type="text" id="check-in" name="dateDebut" class="form-control" placeholder="Sélectionnez une date">
+															</div>
+															<div class="at-select">
+																<label>Date de départ :</label>
+																<input type="text" id="check-out" name="dateFin" class="form-control" placeholder="Sélectionnez une date">
+															</div>
+															<a href="javascript:void(0);" class="at-calendarbtn"><i class="ti-calendar"></i></a>
+														</div>
+													</div>
+												</fieldset>
+												<fieldset class="at-guestsform">
+													<legend class="at-formtitle">Invités</legend>
+													<div class="form-group">
+														<ul class="at-guestsinfo">
+															<li>
+																<div class="at-gueststitle">
+																	<span>Adultes</span>
+																</div>
+																<div class="at-guests-radioholder">
+																			
+																	<div class="at-dropdown">
+																		<span><em class="selected-search-type">01 </em><i class="ti-angle-down"></i></span>
+																	</div>
+																	<div class="at-radioholder">
+																		<span class="at-radio">
+																			<input id="at-adults1" data-title="01" type="radio" name="adults" value="adults" checked="">
+																			<label for="at-adults1">01</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults2" data-title="02" type="radio" name="adults" value="adults2">
+																			<label for="at-adults2">02</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults3" data-title="03" type="radio" name="adults" value="adults3">
+																			<label for="at-adults3">03</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults4" data-title="04" type="radio" name="adults" value="adults4">
+																			<label for="at-adults4">04</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults5" data-title="05" type="radio" name="adults" value="adults5">
+																			<label for="at-adults5">05</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults6" data-title="06" type="radio" name="adults" value="adults6">
+																			<label for="at-adults6">06</label>
+																		</span>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="at-gueststitle">
+																	<span>Enfants <em>(Ages 2–12)</em></span>
+																</div>
+																<div class="at-guests-radioholder">
+																	<div class="at-dropdown">
+																		<span><em class="selected-search-type">03 </em><i class="ti-angle-down"></i></span>
+																	</div>
+																	<div class="at-radioholder">
+																		<span class="at-radio">
+																			<input id="at-adultsv1" data-title="01" type="radio" name="adults" value="adultsv1">
+																			<label for="at-adultsv1">01</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv2" data-title="02" type="radio" name="adults" value="adultsv2">
+																			<label for="at-adultsv2">02</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv3" data-title="03" type="radio" name="adults" value="adultsv3" checked="">
+																			<label for="at-adultsv3">03</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv4" data-title="04" type="radio" name="adults" value="adultsv4">
+																			<label for="at-adultsv4">04</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv5" data-title="05" type="radio" name="adults" value="adultsv5">
+																			<label for="at-adultsv5">05</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv6" data-title="06" type="radio" name="adults" value="adultsv6">
+																			<label for="at-adultsv6">06</label>
+																		</span>
+																	</div>
+																</div>
+															</li>
+															<li>
+																<div class="at-gueststitle">
+																	<span>Bébés <em>(Under 2)</em></span>
+																</div>
+																<div class="at-guests-radioholder">
+																	<div class="at-dropdown at-dropdownonclick2">
+																		<span><em class="selected-search-type">02 </em><i class="ti-angle-down"></i></span>
+																	</div>
+																	<div class="at-radioholder">
+																		<span class="at-radio">
+																			<input id="at-adultsv1b" data-title="01" type="radio" name="adultsb" value="adultsb">
+																			<label for="at-adultsv1b">01</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adultsv2b" data-title="02" type="radio" name="adultsb" value="adults2b" checked="">
+																			<label for="at-adultsv2b">02</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults3b" data-title="03" type="radio" name="adultsb" value="adults3b">
+																			<label for="at-adults3b">03</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults4b" data-title="04" type="radio" name="adultsb" value="adults4b">
+																			<label for="at-adults4b">04</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults5b" data-title="05" type="radio" name="adultsb" value="adults5b">
+																			<label for="at-adults5b">05</label>
+																		</span>
+																		<span class="at-radio">
+																			<input id="at-adults6b" data-title="06" type="radio" name="adultsb" value="adults6b">
+																			<label for="at-adults6b">06</label>
+																		</span>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</fieldset>
+												<fieldset>
+													<div class="at-btnarea">
+														<button type="submit" class="at-btn at-btnactive">Réserver</button>
+													</div>
+												</fieldset>
+											</form>
+										</div>
+									</div>
+									<div class="at-widgets-holder">
+										<div class="at-widgets-title">
+											<h2>À propos de l'hôte</h2>
+										</div>
+										<div class="at-widgets-content at-authorholder at-authorholdertwo">
+											@if (Model.Utilisateur?.EstVérifié == true)
+											{
+												<figure class="at-authorimg at-verifieduser">
+													<img src="@Model.Utilisateur.PhotoDeProfil" alt="Image de l'utilisateur" style="height:30px; width:30px" />
+													<i class="fa fa-shield-alt"></i>
+												</figure>
+											}
+											else
+											{
+												<figure class="at-authorimg">
+													<img src="@Model.Utilisateur.PhotoDeProfil" alt="Image de l'utilisateur" style="height:30px; width:30px" />
+												</figure>
+											}
+
+											<div class="at-authordetails">
+												<div class="at-featurerating">
+													Note moyenne de <strong>@(Model.Utilisateur.NoteMoyenneProprietaire?.ToString("F2") ?? "N/A")</strong> sur 5
+												</div>
+												<h3>@Model.Utilisateur.Nom @Model.Utilisateur.Prenom</h3>
+											</div>
+
+											<div class="at-btnarea">
+												<button id="contactButton" class="at-btn" data-toggle="modal" data-target="#chatModal">Contacter</button>
+											</div>
+
+
+											<div class="modal fade" id="chatModal" tabindex="-1" role="dialog" aria-labelledby="chatModalLabel" aria-hidden="true">
+												<div class="modal-dialog modal-dialog-scrollable" role="document" style="max-width: 600px;">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title">@Model.Utilisateur.Nom @Model.Utilisateur.Prenom</h5>
+															<button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body" style="display:flex; flex-direction: column; height: 500px;">
+															<div id="chatMessages" style="flex:1; overflow-y:auto; padding:10px; border:1px solid #ddd; border-radius:5px;"></div>
+															<div style="display:flex; margin-top:10px;">
+																<input type="text" id="chatInput" class="form-control" placeholder="Écrire un message..." style="margin-right:10px;">
+																<button id="sendButton" class="at-btn at-btnactive">Envoyer</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>																				
+								</div>
+							</div>
+						</aside>
+					</div>
+					
+					<!-- COLUMN 2 - PROPERTY INFO -->
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-8 float-left">
+						<div class="at-propertylinkdetails at-haslayout">
+							<!-- MENU -->
+							<ul class="at-propertylink">
+								<li><a href="#at-about">À propos</a></li>
+								<li><a href="#at-amenetiesproperty">Équipements</a></li>
+								<li><a href="#at-availability">Disponibilités</a></li>
+								<li><a href="#at-termspolicy-holder">Conditions générales &amp; Politique</a></li>
+								<li><a href="#at-comments">Avis</a></li>
+							</ul>
+
+							<!-- DESCRIPTION -->
+							<div id="at-about" class="at-propertydetails at-aboutproperty">
+								<div class="at-propertytitle">
+									<h3>À propos de la propriété</h3>
+								</div>
+								<div class="at-description">
+									<p>@Model.Description</p>
+								</div>
+							</div>
+
+							<!-- DÉTAILS DE LA PROPRIÉTÉ-->
+							<div class="at-propertydetails at-detailsproperty">
+								<div class="at-propertytitle">
+									<h3>Détails de la propriété</h3>
+								</div>
+								<ul class="at-detailslisting">
+									<li><h4>Hébergement</h4><span>@Model.Capacite invités</span></li>
+									<li><h4>Chambres</h4><span>@Model.nbChambres</span></li>
+									<li><h4>Salles de bain</h4><span>@Model.nbSalleDeBain</span></li>
+									<li><h4>Type</h4><span>@Model.Type</span></li>
+									<li><h4>Points d'intérêt à proximité</h4><span>Oui</span></li>
+									<li><h4>Début du Check-In </h4><span>@Model.HeureArrivée</span></li>
+								</ul>
+							</div>
+							
+							<!-- ÉQUIPEMENTS -->		
+							<div id="at-amenetiesproperty" class="at-propertydetails at-amenetiesproperty">
+								<div class="at-propertytitle">
+									<h3>Équipements</h3>
+								</div>
+								<ul id="at-amenetieslisting" class="at-amenetieslisting">
+									@if (Model.WifiDisponible)
+									{
+										<li>
+											<div class="at-amenetiesicon">
+												<i><img src="/images/icons/wifi.png" alt="Wi-Fi"></i>
+											</div>
+											<div class="at-amenetiescontent">
+												<span>Wi-Fi</span>
+											</div>
+										</li>
+									}
+									@if (Model.ParkingDisponible)
+									{
+										<li>
+											<div class="at-amenetiesicon">
+												<i><img src="/images/icons/voiture-garee.png" alt="Parking"></i>
+											</div>
+											<div class="at-amenetiescontent">
+												<span>Parking</span>
+											</div>
+										</li>
+									}
+									@if (Model.PiscineDisponible)
+									{
+										<li>
+											<div class="at-amenetiesicon">
+												<i><img src="/images/icons/piscine.png" alt="Piscine"></i>
+											</div>
+											<div class="at-amenetiescontent">
+												<span>Piscine</span>
+											</div>
+										</li>
+									}
+									@if (Model.ClimatisationDisponible)
+									{
+										<li>
+											<div class="at-amenetiesicon">
+												<i><img src="/images/icons/climatisation.png" alt="Climatisation"></i>
+											</div>
+											<div class="at-amenetiescontent">
+												<span>Climatisation</span>
+											</div>
+										</li>
+									}
+									@if (Model.AnimauxAcceptes)
+									{
+										<li>
+											<div class="at-amenetiesicon">
+												<i><img src="/images/icons/impressions-danimaux.png" alt="Animaux"></i>
+											</div>
+											<div class="at-amenetiescontent">
+												<span>Animaux Acceptés</span>
+											</div>
+										</li>
+									}
+								</ul>
+							</div>
+							
+							<!-- DISPONIBILITÉS -->
+							<div id="at-availability" class="at-propertydetails at-availability">
+								<div class="at-propertytitle">
+									<h3>Disponibilités</h3>
+								</div>
+								<div class="at-description">
+									<p>Découvrez les périodes disponibles pour cette propriété. Les dates en vert indiquent les jours où la propriété est accessible, tandis que les dates en rouge représentent les périodes non disponibles ou déjà réservées. Le jour d'aujourd'hui est marqué pour une identification rapide.</p>
+								</div>
+								<div class="at-availability-holder">
+									<div id="availability-calendar"></div>
+								</div>
+								</div>
+						</div>
+
+						<!-- CONDITIONS GÉNÉRALES & POLITIQUES-->
+						<div id="at-termspolicy-holder" class="at-termspolicy-holder at-haslayout">
+							<div class="at-termspolicy">
+								<figure class="at-termspolicy-img" style="height: 50%; width:30%; padding-top: 5%">
+									<img src="/images/property-single/team.jpg" alt="Image des termes et conditions">
+								</figure>
+								<div class="at-termspolicy-content">
+									<div class="at-title">
+										<h3>Conditions générales et politique</h3>
+									</div>
+									<div class="at-description">
+										<p>
+											Nous nous engageons à offrir un séjour agréable à tous nos invités. Afin de garantir le confort et la sécurité de tous, certaines règles et politiques s'appliquent. <br />
+											<strong>Annulation :</strong> Les réservations peuvent être annulées jusqu'à 48 heures avant l'arrivée pour un remboursement complet. Passé ce délai, des frais d'annulation peuvent être appliqués.<br />
+											<strong>Politique de sécurité :</strong> Toute activité non autorisée ou enfreignant les règles de la propriété entraînera l'expulsion immédiate sans remboursement.
+										</p>
+									</div>
+									<div class="at-btnarea">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<!-- AVIS -->
+						<div id="at-comments" class="at-comments at-commentstwo">
+								<div class="at-title">
+									<h2>@Model.AvisPropriete?.Count() Commentaires</h2>
+								</div>
+								<ul>
+									@if (Model.AvisPropriete != null && Model.AvisPropriete.Any())
+									{
+										@foreach (var avis in Model.AvisPropriete)
+										{
+											<li>
+												<div class="at-comment">
+													<figure class="at-commentimg">
+													<img src="@(avis.Utilisateur?.PhotoDeProfil ?? "/images/default-user.png")" alt="Image utilisateur" style="height:50px; width:50px">
+													</figure>
+													<div class="at-commentdetails">
+														<div class="at-title">
+															<a href="javascript:void(0);">@avis.Utilisateur?.Nom</a>
+															<h3>@avis.Note/5 - @avis.Commentaire</h3>
+															<span>@avis.DateAvis.ToString("dd MMM yyyy")</span>
+														</div>
+														<div class="at-reviewrating">
+															<div class="at-rightarea">
+																<span class="at-stars"><span style="width:@(avis.Note * 20)%"></span></span>
+																<em>@(avis.Note >= 4 ? "Excellent" : avis.Note >= 3 ? "Bon" : "Moyen")</em>
+															</div>
+														</div>
+														<div class="at-description">
+															<p>@avis.Commentaire</p>
+														</div>
+													</div>
+												</div>
+											</li>
+										}
+									}
+									else
+									{
+										<li>
+											<div class="at-commentdetails">
+												<p>Aucun avis pour cette propriété.</p>
+											</div>
+										</li>
+									}
+								</ul>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<input type="hidden" id="property-id" value="@Model.IdPropriete" />
+<input type="hidden" id="price-per-night-data" value="@Model.PrixParNuit" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const propertyId = document.getElementById("property-id").value;
+
+		const calendarEl = document.getElementById("availability-calendar");
+		const calendar = new FullCalendar.Calendar(calendarEl, {
+			initialView: "dayGridMonth",
+			locale: "fr",
+			events: `/Book/GetDisponibilitesFullCalendar?id=${propertyId}`,
+			headerToolbar: {
+				left: "prev,next today",
+				center: "title",
+				right: "dayGridMonth"
+			},
+			dateClick: function (info) {
+				console.log("Date cliquée : ", info.dateStr);
+			}
+		});
+
+		calendar.render();
+	});
+
+
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const propertyId = document.getElementById("property-id").value;
+		const pricePerNight = parseFloat(document.getElementById("price-per-night-data").value);
+		const today = new Date().toISOString().split("T")[0];
+
+		const checkInInput = flatpickr("#check-in", {
+			dateFormat: "Y-m-d",
+			minDate: today,
+			onChange: calculateTotal,
+		});
+
+		const checkOutInput = flatpickr("#check-out", {
+			dateFormat: "Y-m-d",
+			minDate: today,
+			onChange: calculateTotal,
+		});
+
+		// Récupère les dates réservées
+		fetch(`/Book/GetReservedDates?propertyId=${propertyId}`)
+			.then(response => response.json())
+			.then(reservedDates => {
+				// Transforme le format en un tableau d'objets {from: date, to: date}
+				const disabledDates = reservedDates.map(range => ({
+					from: range.start,
+					to: range.end
+				}));
+
+				// Désactive ces dates dans les 2 calendriers Flatpickr
+				checkInInput.set("disable", disabledDates);
+				checkOutInput.set("disable", disabledDates);
+			})
+			.catch(error => console.error("Erreur lors de la récupération des dates :", error));
+
+		function calculateTotal() {
+			const checkInDate = new Date(document.getElementById("check-in").value);
+			const checkOutDate = new Date(document.getElementById("check-out").value);
+
+			if (isNaN(checkInDate) || isNaN(checkOutDate)) {
+				updatePriceDetails(0, 0, 0, 0, 0);
+				return;
+			}
+
+			const diffTime = checkOutDate - checkInDate;
+			const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+			if (diffDays > 0) {
+				const cleaningFee = 50;
+				const serviceFee = 70;
+				const taxRate = 0.15;
+
+				const basePrice = pricePerNight * diffDays;
+				const taxes = (basePrice + cleaningFee + serviceFee) * taxRate;
+				const totalPrice = basePrice + cleaningFee + serviceFee + taxes;
+
+				updatePriceDetails(basePrice, cleaningFee, serviceFee, taxes, totalPrice, diffDays);
+			} else {
+				// Si la date de départ est avant ou égale à la date d'arrivée, on remet à zéro
+				updatePriceDetails(0, 0, 0, 0, 0);
+			}
+		}
+
+		function updatePriceDetails(basePrice, cleaningFee, serviceFee, taxes, totalPrice, nights = 0) {
+			document.getElementById("num-nights").textContent = nights;
+			document.getElementById("price-per-night").innerHTML = `${pricePerNight.toFixed(2)} $ x ${nights} nuit(s) <em>$${basePrice.toFixed(2)}</em>`;
+			document.getElementById("taxes").textContent = `$${taxes.toFixed(2)}`;
+			document.getElementById("total-price").textContent = `$${totalPrice.toFixed(2)}`;
+			document.getElementById("total-prix").textContent = `$${totalPrice.toFixed(2)}`;
+		}
+	});
+
+</script>
+<script>
+	function confirmerReservation() {
+		return confirm("Êtes-vous sûr de vouloir réserver cette propriété ?");
+	}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.0/signalr.min.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const senderId = "@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value";
+		const receiverId = "@Model.Utilisateur.Id";
+
+		const chatMessages = document.getElementById("chatMessages");
+		const chatInput = document.getElementById("chatInput");
+		const sendButton = document.getElementById("sendButton");
+
+		const connection = new signalR.HubConnectionBuilder()
+			.withUrl("/chatHub")
+			.build();
+
+		connection.start()
+			.then(() => {
+				console.log("SignalR connecté !");
+				connection.invoke("JoinGroup", receiverId);
+			})
+			.catch(err => console.error("Erreur SignalR:", err));
+
+		connection.on("ReceiveMessage", (message) => {
+			const isSender = (message.senderId === senderId);
+			const displayName = isSender ? "Vous" : (message.senderName || "Inconnu");
+			const content = message.content || "Message vide";
+			const timestamp = message.timestamp || "Non spécifié";
+			addMessageToChat(displayName, content, timestamp, isSender);
+		});
+
+		// Charger l'historique au moment de l'ouverture du modal
+		$('#chatModal').on('show.bs.modal', function () {
+			loadChatHistory(receiverId);
+		});
+
+		sendButton.addEventListener("click", () => {
+			const content = chatInput.value.trim();
+			if (!content) return;
+			sendMessage(receiverId, content);
+		});
+
+		chatInput.addEventListener("keydown", function (e) {
+			if (e.key === "Enter") {
+				const content = e.target.value.trim();
+				if (content) {
+					sendMessage(receiverId, content);
+				}
+			}
+		});
+
+		function loadChatHistory(receiverId) {
+			fetch(`/Chat/GetMessages?receiverId=${receiverId}`)
+				.then(response => response.json())
+				.then(messages => {
+					chatMessages.innerHTML = "";
+					messages.forEach(msg => {
+						const isSender = (msg.senderId === senderId);
+						const displayName = isSender ? "Vous" : (msg.senderName || "Inconnu");
+						const content = msg.content || "Message vide";
+						const timestamp = msg.timestamp || "Non spécifié";
+						addMessageToChat(displayName, content, timestamp, isSender);
+					});
+				})
+				.catch(err => console.error("Erreur de chargement des messages :", err));
+		}
+
+		function sendMessage(receiverId, content) {
+			connection.invoke("SendMessage", receiverId, content)
+				.then(() => {
+					addMessageToChat("Vous", content, new Date().toLocaleString(), true);
+					chatInput.value = "";
+				})
+				.catch(err => console.error("Erreur d'envoi de message :", err));
+		}
+
+		function addMessageToChat(displayName, content, timestamp, isSender) {
+			const messageContainer = document.createElement("div");
+			messageContainer.style.display = "flex";
+			messageContainer.style.flexDirection = "column";
+			messageContainer.style.alignItems = isSender ? "flex-end" : "flex-start";
+			messageContainer.style.marginBottom = "15px";
+
+			// Nom de l'expéditeur au-dessus
+			const nameDiv = document.createElement("div");
+			nameDiv.textContent = displayName;
+			nameDiv.style.fontWeight = "bold";
+			nameDiv.style.marginBottom = "5px";
+			nameDiv.style.textAlign = isSender ? "right" : "left";
+			messageContainer.appendChild(nameDiv);
+
+			// Bulle du message
+			const bubbleDiv = document.createElement("div");
+			bubbleDiv.style.backgroundColor = isSender ? "#007bff" : "#e6e6e6";
+			bubbleDiv.style.color = isSender ? "white" : "black";
+			bubbleDiv.style.borderRadius = "15px";
+			bubbleDiv.style.padding = "8px 12px";
+			bubbleDiv.style.maxWidth = "60%";
+			bubbleDiv.style.whiteSpace = "pre-wrap";
+			bubbleDiv.style.alignSelf = isSender ? "flex-end" : "flex-start";
+
+			// Ligne pour l'horodatage
+			const timeDiv = document.createElement("div");
+			timeDiv.style.fontSize = "smaller";
+			timeDiv.style.color = "black";
+			timeDiv.style.marginBottom = "5px";
+			timeDiv.style.textAlign = isSender ? "left" : "right";
+			timeDiv.textContent = timestamp;
+			bubbleDiv.appendChild(timeDiv);
+
+			// Contenu du message
+			const contentDiv = document.createElement("div");
+			contentDiv.textContent = content;
+			bubbleDiv.appendChild(contentDiv);
+
+			messageContainer.appendChild(bubbleDiv);
+			chatMessages.appendChild(messageContainer);
+			chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+	});
+
+</script>
+
+
+

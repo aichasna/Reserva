@@ -1,0 +1,19 @@
+﻿@model Reserva.Models.Propriété
+
+<div style="height: 80px; background-color: lightgray;"></div>
+
+<div class="container mt-5">
+    <h3>Supprimer la propriété</h3>
+    <p>Êtes-vous sûr de vouloir supprimer la propriété suivante ?</p>
+    <div class="card p-3">
+        <h4>@Model.Nom</h4>
+        <p>@Model.Description</p>
+        <p><strong>Adresse : </strong>@Model.Adresse, @Model.Ville, @Model.Pays</p>
+    </div>
+
+    <form asp-action="SupprimerProprieteConfirme" asp-controller="Properties" method="post">
+        <input type="hidden" name="id" value="@Model.IdPropriete" />
+        <button type="submit" class="btn btn-danger">Confirmer</button>
+        <a href="@Url.Action("Index", "Properties")" class="btn btn-secondary">Annuler</a>
+    </form>
+</div>
